@@ -5,15 +5,11 @@
 >
 > Status: Completed exploratory project
 
-This repository contains an exploratory machine learning project focused on two related questions: how accurately delivery time can be predicted from order and delivery conditions, and whether recurring delivery patterns can be identified through unsupervised learning.
-
 ## Project Overview
 
 The project uses delivery records containing information about courier characteristics, delivery distance, pickup waiting time, weather, traffic, vehicle type, area type, product category, and delivery time.
 
-The analysis was designed to move from data preparation to model comparison. Categorical variables were represented in multiple ways, and the resulting datasets were evaluated before training nonlinear prediction models. The project then extended beyond point prediction by using clustering methods to examine groups of deliveries with similar feature profiles.
-
-The repository therefore preserves both the predictive modeling workflow and the exploratory analysis of delivery regimes.
+The workflow covers data preparation, feature-representation comparison, supervised model evaluation, and exploratory K-means clustering.
 
 ## Research Questions
 
@@ -33,20 +29,21 @@ The raw delivery records were prepared through the following steps:
 * Removed the original coordinate and time fields after deriving the required features
 * Cleaned categorical values and handled missing observations
 
-The resulting features included courier characteristics, delivery distance, pickup waiting time, environmental conditions, vehicle type, area type, and product category.
-
 ### 2. Feature Representation and Dataset Validation
 
 Categorical variables were represented in two ways:
 
-* **Score-based encoding** — traffic and weather categories were converted into ordered scores
-* **One-hot encoding** — categorical levels were represented as separate binary variables
+* **Score-based encoding** — `Traffic` and `Weather` categories were converted into ordered scores
+* **One-hot encoding** — `Traffic` and `Weather` categories were represented as separate binary variables
 
-In this project, these labels refer specifically to the representation of the `Traffic` and `Weather` variables. `Vehicle`, `Area`, and `Category` had already been one-hot encoded during the earlier data-preparation stage. Therefore, the score-based datasets combine score-encoded traffic and weather variables with one-hot-encoded categorical variables, whereas the one-hot datasets use one-hot encoding for all categorical variables.
+`Vehicle`, `Area`, and `Category` had already been one-hot encoded during the earlier data-preparation stage. Therefore, the score-based datasets combine score-encoded traffic and weather variables with one-hot-encoded remaining categorical variables, whereas the one-hot datasets use one-hot encoding for all categorical variables.
 
-For each encoding approach, the project compared an all-feature representation with a structural subset containing selected delivery-related variables. Random Forest regression with five-fold cross-validation was used to compare the candidate datasets before selecting the representation for the subsequent modeling stage.
+Two feature scopes were compared:
 
-Here, **all features** means that all available preprocessed predictors were retained. **Structural subset** means that the analysis used the selected distance, pickup-waiting-time, traffic, weather, vehicle, and area variables while excluding other predictors such as category indicators.
+* **All features** — all available preprocessed predictors were retained
+* **Structural subset** — selected distance, pickup-waiting-time, traffic, weather, vehicle, and area variables were retained while other predictors, such as category indicators, were excluded
+
+Random Forest regression with five-fold cross-validation was used to compare the four candidate datasets before selecting the representation for the subsequent modeling stage.
 
 ### 3. Supervised Delivery-Time Prediction
 
@@ -76,11 +73,11 @@ The analysis used standardized features and compared candidate numbers of cluste
 
 ## Results Summary
 
-The recorded experiments are separated by evaluation purpose. Cross-validation results were used for dataset and model selection, while the held-out test results summarize final predictive performance.
+The recorded experiments are reported by evaluation stage: cross-validation for dataset and model selection, and held-out test results for final predictive performance.
 
 ### Feature Representation Comparison
 
-The candidate feature representations were compared using five-fold cross-validation with Random Forest regression. In the table below, `score-based` and `one-hot` describe the traffic and weather representation, while `all features` and `structural subset` describe the predictor scope.
+The four candidate datasets produced the following five-fold cross-validation RMSE values:
 
 | Representation | Feature set | 5-fold CV RMSE |
 | --- | --- | ---: |
@@ -93,7 +90,7 @@ The score-based all-feature representation achieved the lowest cross-validation 
 
 ### Model Validation Results
 
-These values come from the model-validation and hyperparameter-tuning stages. They are not held-out test results.
+The validation-stage results were as follows:
 
 | Model | Validation procedure | RMSE |
 | --- | --- | ---: |
@@ -108,21 +105,16 @@ These values come from the model-validation and hyperparameter-tuning stages. Th
 | Random Forest | 22.10 |
 | XGBoost | 22.00 |
 
-XGBoost produced a slightly lower test RMSE than Random Forest on the held-out test split. The difference is small, so the result should be interpreted as comparable predictive performance rather than a substantial model improvement.
+XGBoost produced a slightly lower test RMSE than Random Forest on the held-out test split. The difference is small and should not be interpreted as a substantial model improvement.
 
-The prediction models showed similar overall error levels, while the clustering analyses provided an exploratory view of delivery groups with different feature profiles and delivery-time distributions.
-
-## Project Status and Limitations
-
-The project was completed through data preprocessing, feature-representation comparison, supervised model evaluation, and exploratory clustering. It is preserved as an analytical portfolio project rather than a deployed prediction service.
+## Limitations
 
 Several limitations should be considered:
 
 * The dataset is a single delivery dataset, so the recorded performance should not be interpreted as generalizable performance across other platforms or regions.
 * Score-based encoding imposes an order on traffic and weather categories. This assumption was compared with one-hot encoding but remains a modeling choice.
-* The clustering analysis is exploratory. Results can change depending on feature scaling, the selected variables, and the number of clusters.
-* Clustering was used for pattern discovery rather than held-out predictive evaluation.
-* The repository does not include external validation data or a deployed inference pipeline.
+* Clustering is exploratory: results may change depending on feature scaling, the selected variables, and the number of clusters, and were not evaluated as a held-out prediction task.
+* The repository does not include external validation data.
 
 ## Repository Contents
 
@@ -133,9 +125,7 @@ Several limitations should be considered:
 
 ## Data Availability
 
-Raw and processed datasets are intentionally excluded from this public repository. The original data are referenced locally as `amazon_delivery_raw.csv`, and the dataset source and redistribution terms are not documented in this repository.
-
-The notebooks are preserved to document the analytical workflow. Reproducing the results requires obtaining the source data separately and placing the files under the corresponding local directories: `data/01_raw/`, `data/02_processed/sandbox/`, and `data/02_processed/production/`.
+Raw and processed datasets are intentionally excluded from this public repository. The original data are referenced locally as `amazon_delivery_raw.csv`, and the dataset source and redistribution terms are not documented in this repository. Reproducing the results requires obtaining the source data separately and placing the files under the corresponding local directories: `data/01_raw/`, `data/02_processed/sandbox/`, and `data/02_processed/production/`.
 
 ## Language
 

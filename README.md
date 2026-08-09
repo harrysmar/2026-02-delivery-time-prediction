@@ -38,12 +38,14 @@ Categorical variables were represented in two ways:
 
 `Vehicle`, `Area`, and `Category` had already been one-hot encoded during the earlier data-preparation stage. Therefore, the score-based datasets combine score-encoded traffic and weather variables with one-hot-encoded remaining categorical variables, whereas the one-hot datasets use one-hot encoding for all categorical variables.
 
-Two feature scopes were compared:
+Two feature scopes were defined:
 
 - **All features:** all available preprocessed predictors were retained
 - **Structural subset:** selected distance, pickup-waiting-time, traffic, weather, vehicle, and area variables were retained while other predictors, such as category indicators, were excluded
 
-Random Forest regression with five-fold cross-validation was used to compare the four candidate datasets before selecting the representation for the subsequent modeling stage.
+These two encoding approaches and two feature scopes were combined to create four candidate datasets: `score_all`, `score_structural`, `onehot_all`, and `onehot_structural`.
+
+The four candidate datasets were compared using Random Forest regression with five-fold cross-validation and RMSE as the evaluation metric. The selected representation was then used for the subsequent modeling stage.
 
 ### 3. Supervised Delivery-Time Prediction
 

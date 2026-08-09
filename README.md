@@ -3,7 +3,7 @@
 > Portfolio Project 02 · 2026
 > A comparative machine learning study of delivery-time prediction and delivery-pattern segmentation.
 >
-> Status: Archived exploratory project
+> Status: Completed exploratory project
 
 This repository contains an exploratory machine learning project focused on two related questions: how accurately delivery time can be predicted from order and delivery conditions, and whether recurring delivery patterns can be identified through unsupervised learning.
 

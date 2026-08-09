@@ -33,15 +33,15 @@ The raw delivery records were prepared through the following steps:
 
 Categorical variables were represented in two ways:
 
-* **Score-based encoding** — `Traffic` and `Weather` categories were converted into ordered scores
-* **One-hot encoding** — `Traffic` and `Weather` categories were represented as separate binary variables
+- **Score-based encoding:** `Traffic` and `Weather` categories were converted into ordered scores
+- **One-hot encoding:** `Traffic` and `Weather` categories were represented as separate binary variables
 
 `Vehicle`, `Area`, and `Category` had already been one-hot encoded during the earlier data-preparation stage. Therefore, the score-based datasets combine score-encoded traffic and weather variables with one-hot-encoded remaining categorical variables, whereas the one-hot datasets use one-hot encoding for all categorical variables.
 
 Two feature scopes were compared:
 
-* **All features** — all available preprocessed predictors were retained
-* **Structural subset** — selected distance, pickup-waiting-time, traffic, weather, vehicle, and area variables were retained while other predictors, such as category indicators, were excluded
+- **All features:** all available preprocessed predictors were retained
+- **Structural subset:** selected distance, pickup-waiting-time, traffic, weather, vehicle, and area variables were retained while other predictors, such as category indicators, were excluded
 
 Random Forest regression with five-fold cross-validation was used to compare the four candidate datasets before selecting the representation for the subsequent modeling stage.
 

@@ -103,10 +103,10 @@ These values come from the model-validation and hyperparameter-tuning stages. Th
 
 ### Held-out Test Performance
 
-| Model | Test RMSE | Test MAE |
-| --- | ---: | ---: |
-| Random Forest | 22.10 | 17.10 |
-| XGBoost | 22.00 | Not reported |
+| Model | Test RMSE |
+| --- | ---: |
+| Random Forest | 22.10 |
+| XGBoost | 22.00 |
 
 XGBoost produced a slightly lower test RMSE than Random Forest on the held-out test split. The difference is small, so the result should be interpreted as comparable predictive performance rather than a substantial model improvement.
 

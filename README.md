@@ -42,7 +42,11 @@ Categorical variables were represented in two ways:
 * **Score-based encoding** — traffic and weather categories were converted into ordered scores
 * **One-hot encoding** — categorical levels were represented as separate binary variables
 
+In this project, these labels refer specifically to the representation of the `Traffic` and `Weather` variables. `Vehicle`, `Area`, and `Category` had already been one-hot encoded during the earlier data-preparation stage. Therefore, the score-based datasets combine score-encoded traffic and weather variables with one-hot-encoded categorical variables, whereas the one-hot datasets use one-hot encoding for all categorical variables.
+
 For each encoding approach, the project compared an all-feature representation with a structural subset containing selected delivery-related variables. Random Forest regression with five-fold cross-validation was used to compare the candidate datasets before selecting the representation for the subsequent modeling stage.
+
+Here, **all features** means that all available preprocessed predictors were retained. **Structural subset** means that the analysis used the selected distance, pickup-waiting-time, traffic, weather, vehicle, and area variables while excluding other predictors such as category indicators.
 
 ### 3. Supervised Delivery-Time Prediction
 
@@ -76,7 +80,7 @@ The recorded experiments are separated by evaluation purpose. Cross-validation r
 
 ### Feature Representation Comparison
 
-The candidate feature representations were compared using five-fold cross-validation with Random Forest regression.
+The candidate feature representations were compared using five-fold cross-validation with Random Forest regression. In the table below, `score-based` and `one-hot` describe the traffic and weather representation, while `all features` and `structural subset` describe the predictor scope.
 
 | Representation | Feature set | 5-fold CV RMSE |
 | --- | --- | ---: |

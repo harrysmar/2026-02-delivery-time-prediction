@@ -72,13 +72,39 @@ The analysis used standardized features and compared candidate numbers of cluste
 
 ## Results Summary
 
-The recorded experiments produced the following results:
+The recorded experiments are separated by evaluation purpose. Cross-validation results were used for dataset and model selection, while the held-out test results summarize final predictive performance.
 
-| Analysis | Recorded result |
-| --- | --- |
-| Random Forest | Test RMSE: 22.10; Test MAE: 17.10 |
-| XGBoost | Optuna cross-validation RMSE: 22.07; Test RMSE: 22.00 |
-| Encoding comparison | Score-based all-feature representation: CV RMSE 22.91; one-hot all-feature representation: CV RMSE 23.20 |
+### Feature Representation Comparison
+
+The candidate feature representations were compared using five-fold cross-validation with Random Forest regression.
+
+| Representation | Feature set | 5-fold CV RMSE |
+| --- | --- | ---: |
+| Score-based | All features | 22.911 |
+| One-hot | All features | 23.201 |
+| Score-based | Structural subset | 46.211 |
+| One-hot | Structural subset | 46.334 |
+
+The score-based all-feature representation achieved the lowest cross-validation RMSE and was used for the subsequent prediction models.
+
+### Model Validation Results
+
+These values come from the model-validation and hyperparameter-tuning stages. They are not held-out test results.
+
+| Model | Validation procedure | RMSE |
+| --- | --- | ---: |
+| Random Forest | Out-of-bag validation | 22.85 |
+| Random Forest | Five-fold cross-validation | 22.90 |
+| XGBoost | Optuna cross-validation | 22.07 |
+
+### Held-out Test Performance
+
+| Model | Test RMSE | Test MAE |
+| --- | ---: | ---: |
+| Random Forest | 22.10 | 17.10 |
+| XGBoost | 22.00 | Not reported |
+
+XGBoost produced a slightly lower test RMSE than Random Forest on the held-out test split. The difference is small, so the result should be interpreted as comparable predictive performance rather than a substantial model improvement.
 
 The prediction models showed similar overall error levels, while the clustering analyses provided an exploratory view of delivery groups with different feature profiles and delivery-time distributions.
 
